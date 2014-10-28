@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+D:\Projekty\Passdroid\.metadata\.plugins\org.eclipse.jdt.core
-4289115457.index
-2357258631.index
-1852316178.index
