@@ -1,8 +1,17 @@
 package pl.dkdeveloper.passdroid;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+
 import pl.dkdeveloper.logic.LogicManager;
+import pl.dkdeveloper.model.Store;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -11,21 +20,22 @@ public class CategoryActivity extends Activity {
 
 	ListView lvCategory;
 	LogicManager manager;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_category);
-		
+
 		manager = new LogicManager();
-		lvCategory = (ListView)findViewById(R.id.lvCategory);
-		
+		lvCategory = (ListView) findViewById(R.id.lvCategory);
+
 		// our adapter instance
 
-        ArrayAdapterCategory adapter = new ArrayAdapterCategory(this, R.layout.category_list_item, manager.getCategoryList());
+		ArrayAdapterCategory adapter = new ArrayAdapterCategory(this,
+				R.layout.category_list_item, manager.getCategoryList());
 
-        // create a new ListView, set the adapter and item click listener
-        lvCategory.setAdapter(adapter);
+		// create a new ListView, set the adapter and item click listener
+		lvCategory.setAdapter(adapter);
 	}
 
 	@Override
@@ -40,10 +50,28 @@ public class CategoryActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
 			return true;
+		case R.id.action_save:
+			Serializer serializer = new Persister();
+			Store store = new Store();
+			store.setCategories(manager.getCategoryList());
+			File xmlFile = new File(Environment
+					.getExternalStoragePublicDirectory(
+							Environment.DIRECTORY_DOWNLOADS).getPath()
+					+ "/DB.txt");
+			try {
+				serializer.write(store, xmlFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		default:
+			break;
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 }

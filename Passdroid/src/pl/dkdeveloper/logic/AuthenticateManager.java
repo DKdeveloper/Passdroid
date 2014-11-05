@@ -9,7 +9,7 @@ public class AuthenticateManager {
 	public AuthenticationResult Authenticate(String password) {
 		
 		AuthenticationResult result = new AuthenticationResult();
-		if(!password.isEmpty() && password == "123" ) {
+		if(!password.isEmpty() && password.equals("123") ) {
 			result.LoginResult = LoginResultEnum.SuccesS;
 		}
 		
