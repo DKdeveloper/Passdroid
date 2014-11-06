@@ -46,7 +46,7 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 			viewHolder = (CategoryViewHolder)convertView.getTag();
 		}	
 		
-		viewHolder.tbCategoryName.setText(manager.getCategoryList().get(position).getCategoryName());
+		viewHolder.tbCategoryName.setText(manager.getDefaultCategoryList().get(position).getCategoryName());
 		return convertView;
 	}
 }

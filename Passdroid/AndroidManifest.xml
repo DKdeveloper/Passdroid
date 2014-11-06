@@ -3,10 +3,11 @@
     package="pl.dkdeveloper.passdroid"
     android:versionCode="1"
     android:versionName="1.0" >
-	
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -26,6 +27,10 @@
         <activity
             android:name=".CategoryActivity"
             android:label="@string/title_activity_category" >
+        </activity>
+        <activity
+            android:name=".NewDatabaseActivity"
+            android:label="@string/title_activity_new_database" >
         </activity>
     </application>
 

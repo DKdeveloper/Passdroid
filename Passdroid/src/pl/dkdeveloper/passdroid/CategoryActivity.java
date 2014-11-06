@@ -1,8 +1,6 @@
 package pl.dkdeveloper.passdroid;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -32,7 +30,7 @@ public class CategoryActivity extends Activity {
 		// our adapter instance
 
 		ArrayAdapterCategory adapter = new ArrayAdapterCategory(this,
-				R.layout.category_list_item, manager.getCategoryList());
+				R.layout.category_list_item, manager.getDefaultCategoryList());
 
 		// create a new ListView, set the adapter and item click listener
 		lvCategory.setAdapter(adapter);
@@ -56,7 +54,7 @@ public class CategoryActivity extends Activity {
 		case R.id.action_save:
 			Serializer serializer = new Persister();
 			Store store = new Store();
-			store.setCategories(manager.getCategoryList());
+			store.setCategories(manager.getDefaultCategoryList());
 			File xmlFile = new File(Environment
 					.getExternalStoragePublicDirectory(
 							Environment.DIRECTORY_DOWNLOADS).getPath()

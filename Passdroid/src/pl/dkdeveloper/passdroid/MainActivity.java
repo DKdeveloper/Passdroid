@@ -1,11 +1,19 @@
 package pl.dkdeveloper.passdroid;
 
+import java.io.File;
+
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+
 import pl.dkdeveloper.logic.AuthenticateManager;
 import pl.dkdeveloper.logic.AuthenticationResult;
+import pl.dkdeveloper.logic.LogicManager;
 import pl.dkdeveloper.logic.LoginResultEnum;
+import pl.dkdeveloper.model.Store;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +24,12 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	TextView tbPassword;
-	
+	LogicManager manager;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		manager = new LogicManager();
 		tbPassword = (TextView)findViewById(R.id.tbPassword);
 		
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -65,5 +73,10 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, "Wrong password!", Toast.LENGTH_LONG);
 		}
 	}
+	
+	public void btnNewDb_OnClick(View view) {
+		Intent intent = new Intent(this, NewDatabaseActivity.class);		
+		startActivity(intent);
+	 }
 }
 
