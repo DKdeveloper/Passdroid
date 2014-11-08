@@ -18,12 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	TextView tbPassword;
+	Button btnLogin;
 	LogicManager manager;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		manager = new LogicManager();
 		tbPassword = (TextView)findViewById(R.id.tbPassword);
+		btnLogin = (Button)findViewById(R.id.btnLogin);
+		
+		if(!manager.databaseExist())
+		{
+			tbPassword.setVisibility(0);
+			btnLogin.setVisibility(0);
+		}
 		
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 	}

@@ -26,7 +26,7 @@ public class NewDatabaseActivity extends Activity {
 				Environment.DIRECTORY_DOWNLOADS).getPath()
 		+ "/" + tbDbName.getText() + ".txt";
 		
-		manager.CreateDatabase(path);
+		manager.createDatabase(path);
 		
 		Intent intent = new Intent(this, MainActivity.class);		
 		startActivity(intent);

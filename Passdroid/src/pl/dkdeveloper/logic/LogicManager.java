@@ -26,15 +26,16 @@ public class LogicManager {
 		return list;
 	}
 
-	public void CreateDatabase(String path) {
-
+	public void createDatabase(String path) {
+		setDatabasePath(path);
 		Store store = new Store();
 		store.setCategories(getDefaultCategoryList());
-		SerializeToFile(store, path);
-
+		saveDatabase(store);
 	}
 
-	public void SerializeToFile(Object ob, String path) {
+	public void saveDatabase(Object ob) {
+		String path = getDatabasePath();
+		if(path.equals("")) return;
 		Serializer serializer = new Persister();
 		File xmlFile = new File(path);
 
@@ -45,9 +46,38 @@ public class LogicManager {
 		}
 	}
 	
-	public String GetDatabasePath()
+	public Store loadDatabase() throws Exception
 	{
-		return "";
+		String path = getDatabasePath();
+		if(path.equals("")) throw new Exception("Database not found!!");
+		Serializer serializer = new Persister();
+		File xmlFile = new File(path);
+		Store store = null;
+		try {
+			store = serializer.read(Store.class, xmlFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(store == null) throw new Exception("Can't load database");
+		return store;
 	}
+	
+	public String getDatabasePath()
+	{
+		String path = PreferencesHeleper.getString("db_path");
+		return path;
+	}
+	
+	public void setDatabasePath(String path)
+	{
+		PreferencesHeleper.setString("db_path",path);
+	}
+	
+	public boolean databaseExist()
+	{
+		String path = getDatabasePath();
+		return !path.equals("");
+	}
+	
 
 }
