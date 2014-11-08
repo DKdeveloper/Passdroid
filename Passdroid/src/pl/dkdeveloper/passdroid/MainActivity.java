@@ -37,8 +37,8 @@ public class MainActivity extends Activity {
 		
 		if(!manager.databaseExist())
 		{
-			tbPassword.setVisibility(0);
-			btnLogin.setVisibility(0);
+			tbPassword.setVisibility(View.GONE);
+			btnLogin.setVisibility(View.GONE);
 		}
 		
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -66,11 +66,17 @@ public class MainActivity extends Activity {
 	public void btnLogin_onClick(View view) {
 		
 		if (tbPassword.getText().length() > 0) {
-			AuthenticateManager manager = new AuthenticateManager();
-			AuthenticationResult result = manager.Authenticate(tbPassword.getText().toString());
+			AuthenticateManager authManager = new AuthenticateManager();
+			AuthenticationResult result = authManager.Authenticate(tbPassword.getText().toString());
 			
 			if(result.IsSuccess && result.LoginResult == LoginResultEnum.SuccesS) {
 				// we can put message as reult in intent
+				try {
+					manager.loadDatabase();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Intent intent = new Intent(this, CategoryActivity.class);		
 				startActivity(intent);
 			}

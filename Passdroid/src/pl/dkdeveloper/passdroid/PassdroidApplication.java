@@ -1,11 +1,13 @@
 package pl.dkdeveloper.passdroid;
 
+import pl.dkdeveloper.model.Store;
 import android.app.Application;
 import android.content.Context;
 
 public class PassdroidApplication extends Application{
 
     private static Context context;
+    private static Store store = null;
 
     public void onCreate(){
         super.onCreate();
@@ -15,4 +17,12 @@ public class PassdroidApplication extends Application{
     public static Context getAppContext() {
         return PassdroidApplication.context;
     }
+
+	public static Store getStore() {
+		return store;
+	}
+
+	public static void setStore(Store store) {
+		PassdroidApplication.store = store;
+	}
 }

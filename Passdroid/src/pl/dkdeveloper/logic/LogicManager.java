@@ -13,6 +13,7 @@ import android.os.Environment;
 
 import pl.dkdeveloper.model.Category;
 import pl.dkdeveloper.model.Store;
+import pl.dkdeveloper.passdroid.PassdroidApplication;
 
 public class LogicManager {
 
@@ -35,7 +36,8 @@ public class LogicManager {
 
 	public void saveDatabase(Object ob) {
 		String path = getDatabasePath();
-		if(path.equals("")) return;
+		if (path.equals(""))
+			return;
 		Serializer serializer = new Persister();
 		File xmlFile = new File(path);
 
@@ -45,11 +47,11 @@ public class LogicManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public Store loadDatabase() throws Exception
-	{
+
+	public void loadDatabase() throws Exception {
 		String path = getDatabasePath();
-		if(path.equals("")) throw new Exception("Database not found!!");
+		if (path.equals(""))
+			throw new Exception("Database not found!!");
 		Serializer serializer = new Persister();
 		File xmlFile = new File(path);
 		Store store = null;
@@ -58,26 +60,32 @@ public class LogicManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(store == null) throw new Exception("Can't load database");
-		return store;
+		if (store == null)
+			throw new Exception("Can't load database");
+		setStore(store);
+		
 	}
-	
-	public String getDatabasePath()
-	{
+
+	public String getDatabasePath() {
 		String path = PreferencesHeleper.getString("db_path");
 		return path;
 	}
-	
-	public void setDatabasePath(String path)
-	{
-		PreferencesHeleper.setString("db_path",path);
+
+	public void setDatabasePath(String path) {
+		PreferencesHeleper.setString("db_path", path);
 	}
-	
-	public boolean databaseExist()
-	{
+
+	public boolean databaseExist() {
 		String path = getDatabasePath();
 		return !path.equals("");
 	}
-	
+
+	public Store getStore() {
+		return PassdroidApplication.getStore();
+	}
+
+	public void setStore(Store store) {
+		PassdroidApplication.setStore(store);
+		}
 
 }
