@@ -14,4 +14,8 @@ public class Store {
 	public void setCategories(List<Category> categories) {
 		Categories = categories;
 	}
+	
+	public void addCategory(Category category) {
+		Categories.add(category);
+	}
 }

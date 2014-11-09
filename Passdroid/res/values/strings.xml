@@ -8,5 +8,6 @@
     <string name="save">Zapisz</string>
     <string name="title_activity_new_database">Nowa baza</string>
     <string name="passdroid_preferences">passdroid_preferences</string>
+    <string name="title_activity_password">PasswordActivity</string>
 
 </resources>

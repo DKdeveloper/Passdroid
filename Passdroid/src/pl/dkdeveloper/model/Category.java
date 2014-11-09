@@ -15,12 +15,17 @@ public class Category {
 	
 	public Category(String categoryName) {
 		this.CategoryName = categoryName;
-		Passwords = new ArrayList<Password>();
+		this.Passwords = new ArrayList<Password>();
 	}
 	
+	public Category(String categoryName, List<Password> passwords) {
+		this.CategoryName = categoryName;
+		this.Passwords = new ArrayList<Password>(passwords);
+	}
+
 	private String CategoryName;
 	private List<Password> Passwords;
-
+	
 	public String getCategoryName() {
 		return CategoryName;
 	}

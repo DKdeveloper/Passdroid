@@ -7,30 +7,55 @@ import java.util.List;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Environment;
-
 import pl.dkdeveloper.model.Category;
+import pl.dkdeveloper.model.Password;
 import pl.dkdeveloper.model.Store;
 import pl.dkdeveloper.passdroid.PassdroidApplication;
 
 public class LogicManager {
 
-	public List<Category> getDefaultCategoryList() {
+	// Generate stubs for first DB
+	public List<Category> InitExampleCategories() {
 		List<Category> list = new ArrayList<Category>();
-
-		list.add(new Category("Home"));
-		list.add(new Category("Work"));
-		list.add(new Category("Money"));
-
+		list.add(new Category("Home", InitExamplePasswords()));
+		list.add(new Category("Work", InitExamplePasswords()));
+		list.add(new Category("Internet", InitExamplePasswords()));
+		
+		return list;		
+	}
+	
+	// Generate stubs for first DB
+		public List<Password> InitExamplePasswords() {
+			List<Password> list = new ArrayList<Password>();
+			list.add(new Password("Pass1", "Mariusz", "qwe"));
+			list.add(new Password("Pass2", "Mariusz", "qwe"));
+			list.add(new Password("Pass3", "Mariusz", "qwe"));
+			
+			return list;		
+		}
+	
+	// get categories from DB
+	public List<Category> getCategoryList() {
+		List<Category> list = new ArrayList<Category>(getStore().getCategories());
 		return list;
 	}
+	
+	public List<Password> getPasswordByCategory(String category) {
+		Category cat = new Category();
+		
+		for (Category c : getStore().getCategories()) {
+			if (c.getCategoryName().contains(category)) {
+				cat = c;
+			}
+		}		
+		
+		return cat.getPasswords();
+	}	
 
 	public void createDatabase(String path) {
 		setDatabasePath(path);
 		Store store = new Store();
-		store.setCategories(getDefaultCategoryList());
+		store.setCategories(InitExampleCategories());
 		saveDatabase(store);
 	}
 

@@ -1,33 +1,29 @@
 package pl.dkdeveloper.passdroid;
 
-import java.io.File;
-
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
 import pl.dkdeveloper.logic.LogicManager;
 import pl.dkdeveloper.model.Category;
-import pl.dkdeveloper.model.Store;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class CategoryActivity extends Activity {
 
 	ListView lvCategory;
 	LogicManager manager;
-	private Store store;
+	ArrayAdapterCategory adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +31,24 @@ public class CategoryActivity extends Activity {
 		setContentView(R.layout.activity_category);
 
 		manager = new LogicManager();
-		lvCategory = (ListView) findViewById(R.id.lvCategory);
+		lvCategory = (ListView) findViewById(R.id.lvCategory);		
 
-		// our adapter instance
-		try {
-			
-			store = manager.getStore();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		ArrayAdapterCategory adapter = new ArrayAdapterCategory(this,
-				R.layout.category_list_item, store.getCategories());
+		adapter = new ArrayAdapterCategory(this,
+				R.layout.category_list_item, manager.getCategoryList());		
 
 		// create a new ListView, set the adapter and item click listener
 		lvCategory.setAdapter(adapter);
-	}
-
+		
+		lvCategory.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			   public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+					Intent intent = new Intent(CategoryActivity.this, PasswordActivity.class);
+					startActivity(intent);
+			   } 
+		});		
+	}		
+		
+		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -75,6 +71,7 @@ public class CategoryActivity extends Activity {
 	}
 
 	public void btnAddCategory_onClick(View view) {
+		
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
 		// Setting Dialog Title
@@ -84,23 +81,25 @@ public class CategoryActivity extends Activity {
 				LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.MATCH_PARENT);
 		input.setLayoutParams(lp);
-		alertDialog.setView(input);
-
+		alertDialog.setView(input);		
+		
 		// Setting Positive "Yes" Button
 		alertDialog.setPositiveButton("Save",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						String category = input.getText().toString();
-						Store store = manager.getStore();
-						store.getCategories().add(new Category(category));
-						finish();
-						startActivity(getIntent());
+						Category c = new Category(category, manager.InitExamplePasswords());
+						adapter.add(c);
+						manager.getStore().addCategory(c);
+						manager.saveDatabase(manager.getStore());
 					}
 				});
+		
 		// Setting Negative "NO" Button
-		alertDialog.setNegativeButton("NO",
+		alertDialog.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						Log.d("CATEGORY", "dialog.cancel()");
 						dialog.cancel();
 					}
 				});
