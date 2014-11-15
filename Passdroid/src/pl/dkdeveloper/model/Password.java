@@ -20,7 +20,7 @@ public class Password {
 	}
 		
 	private String Name;
-	private String Login;
+	private String Login = "";
 	private String Password;	
 	
 	public String getName() {
