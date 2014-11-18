@@ -22,9 +22,7 @@ public class NewDatabaseActivity extends Activity {
 	}
 	
 	public void btnSaveNewDb_onClick(View view) {
-		String path = Environment.getExternalStoragePublicDirectory(
-				Environment.DIRECTORY_DOWNLOADS).getPath()
-		+ "/" + getString(R.string.passdroid_db_name);
+		String path = getFilesDir().getPath()+ "/" + getString(R.string.passdroid_db_name);
 		
 		manager.createDatabase(path,tbPassword.getText().toString());
 		
