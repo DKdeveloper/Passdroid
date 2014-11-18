@@ -71,12 +71,6 @@ public class MainActivity extends Activity {
 			
 			if(result.IsSuccess && result.LoginResult == LoginResultEnum.SuccesS) {
 				// we can put message as reult in intent
-				try {
-					manager.loadDatabase();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				Intent intent = new Intent(this, CategoryActivity.class);		
 				startActivity(intent);
 			}

@@ -91,7 +91,7 @@ public class CategoryActivity extends Activity {
 						Category c = new Category(category, manager.InitExamplePasswords());
 						adapter.add(c);
 						manager.getStore().addCategory(c);
-						manager.saveDatabase(manager.getStore());
+						manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
 					}
 				});
 		
