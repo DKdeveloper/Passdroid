@@ -162,5 +162,14 @@ public class LogicManager {
 	public void setStore(Store store) {
 		PassdroidApplication.setStore(store);
 	}
+	
+	public String getFakePassword() {
+		String pass = PreferencesHeleper.getString("fake_password");
+		return pass;
+	}
+
+	public void setFakePassword(String pass) {
+		PreferencesHeleper.setString("fake_password", pass);
+	}
 
 }
