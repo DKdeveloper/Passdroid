@@ -37,15 +37,7 @@ public class CategoryActivity extends Activity {
 				R.layout.category_list_item, manager.getCategoryList());		
 
 		// create a new ListView, set the adapter and item click listener
-		lvCategory.setAdapter(adapter);
-		
-		lvCategory.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			   public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-					Intent intent = new Intent(CategoryActivity.this, PasswordActivity.class);
-					startActivity(intent);
-			   } 
-		});		
+		lvCategory.setAdapter(adapter);	
 	}		
 		
 		

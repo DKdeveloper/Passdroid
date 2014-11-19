@@ -28,6 +28,8 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.simpleframework.xml.stream.OutputNode;
 
+import android.R.bool;
+
 import pl.dkdeveloper.model.Category;
 import pl.dkdeveloper.model.Password;
 import pl.dkdeveloper.model.Store;
@@ -157,6 +159,11 @@ public class LogicManager {
 	public boolean databaseExist() {
 		String path = getDatabasePath();
 		return !path.equals("");
+	}
+	
+	public boolean isAuthenticated()
+	{
+		return ! (PassdroidApplication.getPassword() == null || PassdroidApplication.getPassword().equals(""));
 	}
 
 	public Store getStore() {
