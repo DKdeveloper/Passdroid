@@ -41,5 +41,10 @@ public class Category {
 	public void setPasswords(List<Password> passwords) {
 		Passwords = passwords;
 	}
-
+	
+	public void addPassword(Password pass)
+	{
+		Passwords.add(pass);
+	}
+	
 }

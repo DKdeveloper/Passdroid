@@ -24,7 +24,12 @@ public class NewDatabaseActivity extends Activity {
 	public void btnSaveNewDb_onClick(View view) {
 		String path = getFilesDir().getPath()+ "/" + getString(R.string.passdroid_db_name);
 		
-		manager.createDatabase(path,tbPassword.getText().toString());
+		try {
+			manager.createDatabase(path,tbPassword.getText().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
 		
 		Intent intent = new Intent(this, MainActivity.class);		
 		startActivity(intent);

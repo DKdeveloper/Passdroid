@@ -84,19 +84,24 @@ public class CategoryActivity extends Activity {
 		alertDialog.setView(input);		
 		
 		// Setting Positive "Yes" Button
-		alertDialog.setPositiveButton("Save",
+		alertDialog.setPositiveButton("Zapisz",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						String category = input.getText().toString();
 						Category c = new Category(category, manager.InitExamplePasswords());
 						adapter.add(c);
 						manager.getStore().addCategory(c);
-						manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
+						try {
+							manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
+						} catch (Exception e) {
+							e.printStackTrace();
+							return;
+						}
 					}
 				});
 		
 		// Setting Negative "NO" Button
-		alertDialog.setNegativeButton("Cancel",
+		alertDialog.setNegativeButton("Anuluj",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Log.d("CATEGORY", "dialog.cancel()");

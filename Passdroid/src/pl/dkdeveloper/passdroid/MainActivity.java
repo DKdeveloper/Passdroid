@@ -7,6 +7,7 @@ import org.simpleframework.xml.core.Persister;
 
 import pl.dkdeveloper.logic.AuthenticateManager;
 import pl.dkdeveloper.logic.AuthenticationResult;
+import pl.dkdeveloper.logic.FakeStore;
 import pl.dkdeveloper.logic.LogicManager;
 import pl.dkdeveloper.logic.LoginResultEnum;
 import pl.dkdeveloper.logic.PreferencesHeleper;
@@ -122,6 +123,9 @@ public class MainActivity extends Activity {
 			}
 			else if (result.IsSuccess && result.LoginResult == LoginResultEnum.FakePassword) {
 				// open fake category activity or put message in intent
+				manager.setStore(FakeStore.getFakeStore());
+				Intent intent = new Intent(this, CategoryActivity.class);		
+				startActivity(intent);
 			}
 		}
 		else {

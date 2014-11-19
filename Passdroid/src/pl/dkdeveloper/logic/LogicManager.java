@@ -76,14 +76,18 @@ public class LogicManager {
 		return cat.getPasswords();
 	}
 
-	public void createDatabase(String path, String password) {
+	public void createDatabase(String path, String password) throws Exception {
 		setDatabasePath(path);
 		Store store = new Store();
 		store.setCategories(InitExampleCategories());
 		saveDatabase(store,password);
 	}
 
-	public void saveDatabase(Store ob,String password) {
+	public void saveDatabase(Store ob,String password) throws Exception {
+		if(password == null || password.equals(""))
+			throw new Exception("Password is not set!");
+		
+		
 		String path = getDatabasePath();
 		if (path.equals(""))
 			return;
