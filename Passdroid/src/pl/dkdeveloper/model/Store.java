@@ -31,4 +31,17 @@ public class Store {
 			
 		
 	}
+
+	public void updateCategoryWithNewName(String categoryName,
+			String newCategoryName) {
+		for(Category c : Categories)
+		{
+			if(c.getCategoryName().equals(categoryName))
+			{
+				c.setCategoryName(newCategoryName);
+				break;
+			}
+		}
+		
+	}
 }

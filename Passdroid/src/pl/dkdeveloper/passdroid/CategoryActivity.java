@@ -65,8 +65,6 @@ public class CategoryActivity extends Activity {
 	public void btnAddCategory_onClick(View view) {
 		
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-		// Setting Dialog Title
 		alertDialog.setTitle("Category name");
 		final EditText input = new EditText(this);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -100,10 +98,6 @@ public class CategoryActivity extends Activity {
 						dialog.cancel();
 					}
 				});
-
-		// closed
-
-		// Showing Alert Message
 		alertDialog.show();
 
 	}
