@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -42,6 +41,7 @@ public class CategoryActivity extends Activity {
 		lvCategory.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			   public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+					Log.d("YOLO", String.valueOf(position));
 					Intent intent = new Intent(CategoryActivity.this, PasswordActivity.class);
 					startActivity(intent);
 			   } 
