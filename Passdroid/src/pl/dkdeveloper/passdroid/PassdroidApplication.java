@@ -8,6 +8,7 @@ public class PassdroidApplication extends Application{
 
     private static Context context;
     private static Store store = null;
+    private static String password = null;
 
     public void onCreate(){
         super.onCreate();
@@ -24,5 +25,13 @@ public class PassdroidApplication extends Application{
 
 	public static void setStore(Store store) {
 		PassdroidApplication.store = store;
+	}
+
+	public static String getPassword() {
+		return password;
+	}
+
+	public static void setPassword(String password) {
+		PassdroidApplication.password = password;
 	}
 }

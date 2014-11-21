@@ -7,18 +7,26 @@ import org.simpleframework.xml.core.Persister;
 
 import pl.dkdeveloper.logic.AuthenticateManager;
 import pl.dkdeveloper.logic.AuthenticationResult;
+import pl.dkdeveloper.logic.FakeStore;
 import pl.dkdeveloper.logic.LogicManager;
 import pl.dkdeveloper.logic.LoginResultEnum;
+import pl.dkdeveloper.logic.PreferencesHeleper;
+import pl.dkdeveloper.model.Category;
 import pl.dkdeveloper.model.Store;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +68,45 @@ public class MainActivity extends Activity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		
+		if(id == R.id.action_set_alarm_password)
+		{
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+			// Setting Dialog Title
+			alertDialog.setTitle("Hasło alarmowe");
+			final EditText input = new EditText(this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.MATCH_PARENT);
+			input.setLayoutParams(lp);
+			alertDialog.setView(input);		
+			
+			// Setting Positive "Yes" Button
+			alertDialog.setPositiveButton("Zapisz",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							String fakePassword = input.getText().toString();
+							manager.setFakePassword(fakePassword);
+							Log.d("FAKE_PASSWORD", fakePassword);
+						}
+					});
+			
+			// Setting Negative "NO" Button
+			alertDialog.setNegativeButton("Anuluj",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							Log.d("FAKE_PASSWORD", "dialog.cancel()");
+							dialog.cancel();
+						}
+					});
+
+			// closed
+
+			// Showing Alert Message
+			alertDialog.show();
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -71,17 +118,14 @@ public class MainActivity extends Activity {
 			
 			if(result.IsSuccess && result.LoginResult == LoginResultEnum.SuccesS) {
 				// we can put message as reult in intent
-				try {
-					manager.loadDatabase();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				Intent intent = new Intent(this, CategoryActivity.class);		
 				startActivity(intent);
 			}
 			else if (result.IsSuccess && result.LoginResult == LoginResultEnum.FakePassword) {
 				// open fake category activity or put message in intent
+				manager.setStore(FakeStore.getFakeStore());
+				Intent intent = new Intent(this, CategoryActivity.class);		
+				startActivity(intent);
 			}
 		}
 		else {

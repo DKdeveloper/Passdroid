@@ -18,4 +18,30 @@ public class Store {
 	public void addCategory(Category category) {
 		Categories.add(category);
 	}
+
+	public void removeCategoryByName(String categoryName) {
+		for(Category c : Categories)
+		{
+			if(c.getCategoryName().equals(categoryName))
+			{
+				Categories.remove(c);
+				break;
+			}
+		}
+			
+		
+	}
+
+	public void updateCategoryWithNewName(String categoryName,
+			String newCategoryName) {
+		for(Category c : Categories)
+		{
+			if(c.getCategoryName().equals(categoryName))
+			{
+				c.setCategoryName(newCategoryName);
+				break;
+			}
+		}
+		
+	}
 }
