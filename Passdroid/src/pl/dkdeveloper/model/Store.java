@@ -18,6 +18,23 @@ public class Store {
 	public void addCategory(Category category) {
 		Categories.add(category);
 	}
+	
+	public Category getCategoryByName(String categoryName) {
+		for(Category c : Categories)
+		{
+			if(c.getCategoryName().equals(categoryName))
+			{
+				return c;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void UpdateCategory(Category category) {
+		int location = Categories.indexOf(category);
+		Categories.set(location, category);
+	}
 
 	public void removeCategoryByName(String categoryName) {
 		for(Category c : Categories)

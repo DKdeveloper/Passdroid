@@ -4,11 +4,11 @@
     <string name="app_name">Passdroid</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_category">Category</string>
+    <string name="title_activity_category">Kategorie haseł</string>
     <string name="save">Zapisz</string>
     <string name="title_activity_new_database">Nowa baza</string>
     <string name="passdroid_preferences">passdroid_preferences</string>
     <string name="passdroid_db_name">Passdroid.db</string>
-    <string name="title_activity_password">PasswordActivity</string>
+    <string name="title_activity_password">Hasła</string>
 
 </resources>

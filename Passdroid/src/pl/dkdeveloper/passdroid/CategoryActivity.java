@@ -36,16 +36,7 @@ public class CategoryActivity extends Activity {
 				R.layout.category_list_item, manager.getCategoryList());		
 
 		// create a new ListView, set the adapter and item click listener
-		lvCategory.setAdapter(adapter);
-		
-		lvCategory.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			   public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-					Log.d("YOLO", String.valueOf(position));
-					Intent intent = new Intent(CategoryActivity.this, PasswordActivity.class);
-					startActivity(intent);
-			   } 
-		});		
+		lvCategory.setAdapter(adapter);	
 	}		
 		
 		
@@ -84,6 +75,52 @@ public class CategoryActivity extends Activity {
 		alertDialog.setView(input);		
 		
 		// Setting Positive "Yes" Button
+		alertDialog.setPositiveButton("Zapisz",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						String category = input.getText().toString();
+						Category c = new Category(category, manager.InitExamplePasswords());
+						adapter.add(c);
+						manager.getStore().addCategory(c);
+						try {
+							manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+		
+		// Setting Negative "NO" Button
+		alertDialog.setNegativeButton("Anuluj",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Log.d("CATEGORY", "dialog.cancel()");
+						dialog.cancel();
+					}
+				});
+
+		// closed
+
+		// Showing Alert Message
+		alertDialog.show();
+
+	}
+	
+public void btnAddPassword_onClick(View view) {
+		
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Nowe has³o");
+		final EditText input = new EditText(this);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.MATCH_PARENT);
+		input.setLayoutParams(lp);
+		alertDialog.setView(input);		
+		
+		// Setting Positive "Yes" Button
 		alertDialog.setPositiveButton("Save",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -91,7 +128,12 @@ public class CategoryActivity extends Activity {
 						Category c = new Category(category, manager.InitExamplePasswords());
 						adapter.add(c);
 						manager.getStore().addCategory(c);
-						manager.saveDatabase(manager.getStore());
+						try {
+							manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				});
 		

@@ -1,24 +1,15 @@
 package pl.dkdeveloper.passdroid;
 
-import java.io.File;
-
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
 import pl.dkdeveloper.logic.AuthenticateManager;
 import pl.dkdeveloper.logic.AuthenticationResult;
 import pl.dkdeveloper.logic.FakeStore;
 import pl.dkdeveloper.logic.LogicManager;
 import pl.dkdeveloper.logic.LoginResultEnum;
-import pl.dkdeveloper.logic.PreferencesHeleper;
-import pl.dkdeveloper.model.Category;
-import pl.dkdeveloper.model.Store;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;

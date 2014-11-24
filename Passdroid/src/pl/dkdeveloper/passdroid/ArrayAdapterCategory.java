@@ -11,15 +11,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 	
@@ -28,6 +26,8 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
     List<Category> data = null;
     LayoutInflater mInflater;
     LogicManager manager;
+    
+    public static String EXTRA_INTENT_ELEMENT_PASSWORD = "CATEGORY";
 
 	
 	public ArrayAdapterCategory(Context mContext, int layoutResourceId, List<Category> data) {
@@ -70,8 +70,8 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 				final String categoryName = data.get(tag).getCategoryName();
 				
 				new AlertDialog.Builder(mContext)
-			    .setTitle("JesteÅ› pewien?")
-			    .setMessage("Czy chcesz usunÄ…Ä‡ kategoriÄ™ " + categoryName + "?")
+			    .setTitle("Jesteœ pewien?")
+			    .setMessage("Czy chcesz usun¹æ kategoriê " + categoryName + "?")
 			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int which) { 
 			        	 data.remove(tag);
@@ -148,11 +148,19 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 		
 		//viewHolder.tbCategoryName.setText(manager.getCategoryList().get(position).getCategoryName());
 		viewHolder.tbCategoryName.setText(data.get(position).getCategoryName());
+		
+		viewHolder.tbCategoryName.setTag(position);
 		viewHolder.tbCategoryName.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				final int tag = (Integer) v.getTag();
+                final String categoryName = data.get(tag).getCategoryName();
+				
+                Log.d("YOLO", "Put Intent: "+categoryName);
+                
 				Intent intent = new Intent(mContext, PasswordActivity.class);
+				intent.putExtra(EXTRA_INTENT_ELEMENT_PASSWORD, categoryName);
 				mContext.startActivity(intent);
 			}
 		});	
