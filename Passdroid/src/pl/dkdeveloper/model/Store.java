@@ -1,11 +1,12 @@
 package pl.dkdeveloper.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.simpleframework.xml.Default;
 
 @Default
 public class Store {
-	private List<Category> Categories;
+	private List<Category> Categories = new ArrayList<Category>();
 
 	public List<Category> getCategories() {
 		return Categories;

@@ -14,6 +14,7 @@ import java.security.Key;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -115,6 +116,52 @@ public class LogicManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//Saving Fake DB
+		saveFakeDb(ob);
+		
+	}
+
+	private void saveFakeDb(Store originalStore) {
+		Store fakeStore = new Store();
+		Random rnd = new Random();
+		
+		for(Category c : originalStore.getCategories())
+		{
+			Category category = new Category(c.getCategoryName());
+			for(Password p : c.getPasswords())
+			{
+				category.addPassword(new Password(p.getName(), p.getLogin(), 
+						PasswordGenerator.getRandomPassword()));
+			}
+			fakeStore.addCategory(category);
+		}
+		
+		String path = getFakeDatabasePath();
+		File file = new File(path);
+		Serializer serializer = new Persister();
+		try {
+			serializer.write(fakeStore,file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public Store loadFakeDb()
+	{
+		String path = getFakeDatabasePath();
+		File file = new File(path);
+		Serializer serializer = new Persister();
+		Store store = null;
+		try {
+			store = serializer.read(Store.class, file);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return store;
 	}
 
 	public void loadDatabase(String password) throws Exception {
@@ -154,6 +201,15 @@ public class LogicManager {
 
 	public void setDatabasePath(String path) {
 		PreferencesHeleper.setString("db_path", path);
+	}
+	
+	public String getFakeDatabasePath() {
+		String path = PreferencesHeleper.getString("fake_db_path");
+		return path;
+	}
+
+	public void setFakeDatabasePath(String path) {
+		PreferencesHeleper.setString("fake_db_path", path);
 	}
 
 	public boolean databaseExist() {

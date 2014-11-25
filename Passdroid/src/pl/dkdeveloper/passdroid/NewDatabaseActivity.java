@@ -23,7 +23,8 @@ public class NewDatabaseActivity extends Activity {
 	
 	public void btnSaveNewDb_onClick(View view) {
 		String path = getFilesDir().getPath()+ "/" + getString(R.string.passdroid_db_name);
-		
+		String fakePath = getFilesDir().getPath()+ "/" + getString(R.string.passdroid_fake_db_name);
+		manager.setFakeDatabasePath(fakePath);
 		try {
 			manager.createDatabase(path,tbPassword.getText().toString());
 		} catch (Exception e) {
