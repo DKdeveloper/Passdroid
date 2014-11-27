@@ -1,5 +1,6 @@
 package pl.dkdeveloper.passdroid;
 
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class PasswordViewHolder {
@@ -7,4 +8,6 @@ public class PasswordViewHolder {
 	TextView tbName;
 	TextView tbLogin;
 	TextView tbPassword;
+	ImageButton btnDelete;
+	ImageButton btnEdit;
 }

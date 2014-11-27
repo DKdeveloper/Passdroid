@@ -62,4 +62,45 @@ public class Store {
 		}
 		
 	}
+	
+	public void removePasswordByName(Category category, String password) {
+		for(Password p : category.getPasswords())
+		{
+			if(p.getName().equals(password))
+			{
+				category.getPasswords().remove(p);
+				break;
+			}
+		}
+	}
+	
+	public Password getPasswordByName(Category category, String passName) {
+		for(Password p : category.getPasswords())
+		{
+			if(p.getName().equals(passName))
+			{
+				return p;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void updatePasswordByName(Category category, String oldName, Password newPassword) {
+			int index = category.getPasswords().indexOf(this.getPasswordByName(category, oldName));
+			category.getPasswords().set(index, newPassword);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

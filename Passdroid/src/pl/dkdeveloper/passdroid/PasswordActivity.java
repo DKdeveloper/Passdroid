@@ -42,7 +42,7 @@ public class PasswordActivity extends Activity {
 		lvPasswords = (ListView) findViewById(R.id.lvPasswords);		
 
 		adapter = new ArrayAdapterPassword(this,
-				R.layout.password_list_item, manager.getPasswordByCategory(sCategory));	
+				R.layout.password_list_item, manager.getPasswordByCategory(sCategory), category);	
 		
 		Log.d("YOLO", "Put Intent: "+sCategory);
 
