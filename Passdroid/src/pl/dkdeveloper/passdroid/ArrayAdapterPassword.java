@@ -10,9 +10,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,7 +44,7 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		PasswordViewHolder viewHolder;
+		final PasswordViewHolder viewHolder;
 		
 		if (convertView == null) {			
 			convertView = mInflater.inflate(R.layout.password_list_item, parent, false);
@@ -171,6 +173,20 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
         				});
         		alertDialog.show();
 				
+			}
+		});
+		
+		viewHolder.tbPassword.setOnTouchListener(new OnTouchListener() {	
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				Log.d("YOLO", "OnTouchListener");
+				if(!manager.isAuthenticated()) return false;
+				
+				viewHolder.tbPassword.setVisibility(View.VISIBLE);
+				
+				return false;
 			}
 		});
 		

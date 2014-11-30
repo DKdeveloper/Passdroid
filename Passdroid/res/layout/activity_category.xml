@@ -26,10 +26,13 @@
 
         <Button
             android:id="@+id/btnAddCategory"
+            android:background="@drawable/button_red"
+            style="@style/button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dodaj kategorię" 
-            android:onClick="btnAddCategory_onClick"/>
+            android:onClick="btnAddCategory_onClick"
+            android:text="# Dodaj kategorię" />
+
     </LinearLayout>
 
 </LinearLayout>

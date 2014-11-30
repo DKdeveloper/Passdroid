@@ -2,15 +2,9 @@ package pl.dkdeveloper.logic;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.security.Key;
 import java.security.spec.KeySpec;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +13,6 @@ import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -27,9 +20,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import org.simpleframework.xml.stream.OutputNode;
-
-import android.R.bool;
 
 import pl.dkdeveloper.model.Category;
 import pl.dkdeveloper.model.Password;
@@ -43,9 +33,9 @@ public class LogicManager {
 	// Generate stubs for first DB
 	public List<Category> InitExampleCategories() {
 		List<Category> list = new ArrayList<Category>();
-		list.add(new Category("Home", InitExamplePasswords()));
-		list.add(new Category("Work", InitExamplePasswords()));
-		list.add(new Category("Internet", InitExamplePasswords()));
+		list.add(new Category("Home"));
+		list.add(new Category("Work"));
+		list.add(new Category("Internet"));
 
 		return list;
 	}
