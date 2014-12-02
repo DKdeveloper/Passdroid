@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -51,6 +52,13 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 			viewHolder.tbCategoryName = (TextView)convertView.findViewById(R.id.tbCategoryName);
 			viewHolder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDeleteCategory);
 			viewHolder.btnEdit = (ImageButton) convertView.findViewById(R.id.btnCategoryEdit);
+			
+			if(!PassdroidApplication.isEditMode())
+			{
+				viewHolder.btnDelete.setVisibility(View.GONE);
+				viewHolder.btnEdit.setVisibility(View.GONE);
+			}
+			
 			convertView.setTag(viewHolder);			
 		}
 		else
@@ -70,8 +78,8 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 				final String categoryName = data.get(tag).getCategoryName();
 				
 				new AlertDialog.Builder(mContext)
-			    .setTitle("Jesteœ pewien?")
-			    .setMessage("Czy chcesz usun¹æ kategoriê " + categoryName + "?")
+			    .setTitle("Jesteï¿½ pewien?")
+			    .setMessage("Czy chcesz usunï¿½ï¿½ kategoriï¿½ " + categoryName + "?")
 			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int which) { 
 			        	 data.remove(tag);

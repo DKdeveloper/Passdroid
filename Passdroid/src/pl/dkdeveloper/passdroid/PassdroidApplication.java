@@ -9,6 +9,7 @@ public class PassdroidApplication extends Application{
     private static Context context;
     private static Store store = null;
     private static String password = null;
+    private static boolean editMode = false;
 
     public void onCreate(){
         super.onCreate();
@@ -33,5 +34,13 @@ public class PassdroidApplication extends Application{
 
 	public static void setPassword(String password) {
 		PassdroidApplication.password = password;
+	}
+
+	public static boolean isEditMode() {
+		return editMode;
+	}
+
+	public static void setEditMode(boolean editMode) {
+		PassdroidApplication.editMode = editMode;
 	}
 }

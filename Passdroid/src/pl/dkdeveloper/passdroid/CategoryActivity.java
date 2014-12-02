@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,8 +34,11 @@ public class CategoryActivity extends Activity {
 		lvCategory = (ListView) findViewById(R.id.lvCategory);		
 
 		adapter = new ArrayAdapterCategory(this,
-				R.layout.category_list_item, manager.getCategoryList());		
-
+				R.layout.category_list_item, manager.getCategoryList());
+		
+		if(!PassdroidApplication.isEditMode())
+			((Button) findViewById(R.id.btnAddCategory)).setVisibility(View.GONE);
+		
 		// create a new ListView, set the adapter and item click listener
 		lvCategory.setAdapter(adapter);	
 	}		
@@ -44,6 +48,8 @@ public class CategoryActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.category, menu);
+		MenuItem item = menu.findItem(R.id.action_toggleEditModeCategory);
+		item.setTitle(PassdroidApplication.isEditMode() ? "Tryb odczytu" : "Tryb edycji");
 		return true;
 	}
 
@@ -53,7 +59,10 @@ public class CategoryActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-		case R.id.action_settings:
+		case R.id.action_toggleEditModeCategory:
+			PassdroidApplication.setEditMode(!PassdroidApplication.isEditMode());
+			finish();
+			startActivity(getIntent());
 			return true;
 		default:
 			break;

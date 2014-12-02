@@ -11,5 +11,6 @@
     <string name="passdroid_db_name">Passdroid.db</string>
     <string name="passdroid_fake_db_name">Passwords.db</string>
     <string name="title_activity_password">Hasła</string>
+    <string name="editMode">Tryb edycji</string>
 
 </resources>

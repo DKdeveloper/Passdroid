@@ -55,6 +55,13 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 			viewHolder.tbPassword = (TextView)convertView.findViewById(R.id.tbPassword);
 			viewHolder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDeletePassword);
 			viewHolder.btnEdit = (ImageButton) convertView.findViewById(R.id.btnPasswordEdit);
+			
+			if(!PassdroidApplication.isEditMode())
+			{
+				viewHolder.btnDelete.setVisibility(View.GONE);
+				viewHolder.btnEdit.setVisibility(View.GONE);
+			}
+			
 			convertView.setTag(viewHolder);			
 		}
 		else
