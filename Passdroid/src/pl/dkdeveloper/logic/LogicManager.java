@@ -147,7 +147,6 @@ public class LogicManager {
 		try {
 			store = serializer.read(Store.class, file);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

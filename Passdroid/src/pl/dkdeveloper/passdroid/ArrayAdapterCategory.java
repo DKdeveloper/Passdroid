@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 	
@@ -129,15 +129,21 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
         					public void onClick(DialogInterface dialog, int which) {
         						
         						String newCategoryName = input.getText().toString();
-        						//TODO: Validation for Category Name
-        						manager.getStore().updateCategoryWithNewName(categoryName,newCategoryName);
-        						try {
-        							manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
-        						} catch (Exception e) {
-        							e.printStackTrace();
-        							return;
+        						
+        						if (!manager.getStore().checkCategoryExist(newCategoryName)) {
+	        						
+	        						manager.getStore().updateCategoryWithNewName(categoryName,newCategoryName);
+	        						try {
+	        							manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
+	        						} catch (Exception e) {
+	        							e.printStackTrace();
+	        							return;
+	        						}
+	        						notifyDataSetChanged();
         						}
-        						notifyDataSetChanged();
+        						else {
+        							Toast.makeText(getContext(), "Kategoria o podanej nazwie ju¿ istnieje", Toast.LENGTH_LONG).show();
+        						}
         					}
         				});
         		

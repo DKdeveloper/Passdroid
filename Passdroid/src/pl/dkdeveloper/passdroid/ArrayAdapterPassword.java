@@ -16,10 +16,12 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 	
@@ -55,6 +57,7 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 			viewHolder.tbPassword = (TextView)convertView.findViewById(R.id.tbPassword);
 			viewHolder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDeletePassword);
 			viewHolder.btnEdit = (ImageButton) convertView.findViewById(R.id.btnPasswordEdit);
+			viewHolder.btnPreview = (ImageButton) convertView.findViewById(R.id.btnPreviewPassword);
 			
 			if(!PassdroidApplication.isEditMode())
 			{
@@ -156,17 +159,21 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
         						String editLogin = inputLogin.getText().toString();
         						String editPass = inputPass.getText().toString();
         						
-        						Password newPassword = new Password(editName, editLogin, editPass);
-        						
-        						//TODO: Validation for Category Name
-        						manager.getStore().updatePasswordByName(category, passwordName, newPassword);
-        						try {
-        							manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
-        						} catch (Exception e) {
-        							e.printStackTrace();
-        							return;
+        						if (manager.getStore().checkPasswordExist(category, editName)) {
+	        						Password newPassword = new Password(editName, editLogin, editPass);
+	        						       						
+	        						manager.getStore().updatePasswordByName(category, passwordName, newPassword);
+	        						try {
+	        							manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
+	        						} catch (Exception e) {
+	        							e.printStackTrace();
+	        							return;
+	        						}
+	        						notifyDataSetChanged();
         						}
-        						notifyDataSetChanged();
+        						else {
+        							Toast.makeText(getContext(), "Has³o o podanej nazwie ju¿ istnieje", Toast.LENGTH_LONG).show();
+        						}
         					}
         				});
         		
@@ -183,15 +190,19 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 			}
 		});
 		
-		viewHolder.tbPassword.setOnTouchListener(new OnTouchListener() {	
+		viewHolder.btnPreview.setOnTouchListener(new OnTouchListener() {	
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated m`ethod stub
 				Log.d("YOLO", "OnTouchListener");
-				if(!manager.isAuthenticated()) return false;
 				
-				viewHolder.tbPassword.setVisibility(View.VISIBLE);
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					viewHolder.tbPassword.setVisibility(View.VISIBLE);
+				}
+				else if (event.getAction() == MotionEvent.ACTION_UP) {
+					viewHolder.tbPassword.setVisibility(View.INVISIBLE);
+				}
 				
 				return false;
 			}

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class CategoryActivity extends Activity {
@@ -88,14 +89,19 @@ public class CategoryActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						String category = input.getText().toString();
-						Category c = new Category(category, manager.InitExamplePasswords());
-						adapter.add(c);
-						manager.getStore().addCategory(c);
-						try {
-							manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if (!manager.getStore().checkCategoryExist(category)) {
+							Category c = new Category(category, manager.InitExamplePasswords());
+							adapter.add(c);
+							manager.getStore().addCategory(c);
+							try {
+								manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						else {
+							Toast.makeText(CategoryActivity.this, "Kategoria o podanej nazwie ju¿ istnieje", Toast.LENGTH_LONG).show();
 						}
 					}
 				});

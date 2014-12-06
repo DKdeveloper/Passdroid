@@ -45,9 +45,7 @@ public class Store {
 				Categories.remove(c);
 				break;
 			}
-		}
-			
-		
+		}		
 	}
 
 	public void updateCategoryWithNewName(String categoryName,
@@ -59,8 +57,7 @@ public class Store {
 				c.setCategoryName(newCategoryName);
 				break;
 			}
-		}
-		
+		}		
 	}
 	
 	public void removePasswordByName(Category category, String password) {
@@ -91,16 +88,27 @@ public class Store {
 			category.getPasswords().set(index, newPassword);
 	}
 	
+	public boolean checkCategoryExist(String category) {
+		for(Category c : Categories)
+		{
+			if(c.getCategoryName().equals(category))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public boolean checkPasswordExist(Category category, String passName) {
+		for(Password p : category.getPasswords())
+		{
+			if(p.getName().equals(passName))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

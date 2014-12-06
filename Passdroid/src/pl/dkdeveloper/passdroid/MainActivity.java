@@ -110,6 +110,7 @@ public class MainActivity extends Activity {
 				// we can put message as reult in intent
 				Intent intent = new Intent(this, CategoryActivity.class);
 				startActivity(intent);
+				finish();
 			} else if (result.IsSuccess
 					&& result.LoginResult == LoginResultEnum.FakePassword) {
 				// open fake category activity or put message in intent
@@ -118,12 +119,16 @@ public class MainActivity extends Activity {
 					manager.setStore(FakeStore.getFakeStore());
 				} else {
 					manager.setStore(manager.loadFakeDb());
-				}
+				}	
 				Intent intent = new Intent(this, CategoryActivity.class);
 				startActivity(intent);
+				finish();
+			}
+			else {
+				Toast.makeText(this, "Z≥e has≥o!", Toast.LENGTH_LONG).show();				
 			}
 		} else {
-			Toast.makeText(this, "Wrong password!", Toast.LENGTH_LONG);
+			Toast.makeText(this, "Wprowadü has≥o!", Toast.LENGTH_LONG).show();
 		}
 	}
 

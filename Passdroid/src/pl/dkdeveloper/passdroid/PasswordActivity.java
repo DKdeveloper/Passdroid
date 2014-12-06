@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class PasswordActivity extends Activity {
 
@@ -114,16 +115,21 @@ public class PasswordActivity extends Activity {
 						String sLogin = inputLogin.getText().toString();
 						String sPass = inputPass.getText().toString();
 						
-						Password p = new Password(sName, sLogin, sPass);
-						adapter.add(p);
-						//category.getPasswords().add(p);
-						manager.getStore().UpdateCategory(category);
-						try {
-							manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if (!manager.getStore().checkPasswordExist(category, sName)) {
+							Password p = new Password(sName, sLogin, sPass);
+							adapter.add(p);
+							//category.getPasswords().add(p);
+							manager.getStore().UpdateCategory(category);
+							try {
+								manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
+						else {
+							Toast.makeText(PasswordActivity.this, "Has³o o podanej nazwie ju¿ istnieje", Toast.LENGTH_LONG).show();
+						}							
 					}
 				});
 		
