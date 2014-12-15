@@ -28,16 +28,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.32"
             android:ems="10"
+            android:hint="# hasło"
             android:inputType="textPassword" />
 
     </LinearLayout>
+    
+        <FrameLayout
+        android:id="@+id/frameNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/border_shape"
+        android:splitMotionEvents="false" >
+
+        <TextView
+            android:id="@+id/textViewInfo2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:lines="3"
+            android:text="1 palec = 1\n 2 palce = 2 \n itd"
+            android:textColor="@android:color/secondary_text_dark" />
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/btnSaveNewDb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Zapisz" 
+        android:text="# Zapisz" 
         android:onClick="btnSaveNewDb_onClick"
         android:background="@drawable/button_red"
         style="@style/button_text" />

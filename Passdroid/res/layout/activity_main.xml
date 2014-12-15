@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="password"
+            android:hint="# hasło"
             android:inputType="textPassword" >
 
             <requestFocus />
@@ -39,13 +39,32 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/framePassword"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/border_shape"
+        android:splitMotionEvents="false" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:lines="3"
+            android:text="1 palec = 1\n 2 palce = 2 \n itd"
+            android:textColor="@android:color/secondary_text_dark" />
+
+    </FrameLayout>
+
     <Button
         android:id="@+id/btnNewDb"
         style="@style/button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="bottom|center_horizontal"
         android:background="@drawable/button_red"
+        android:gravity="center"
         android:onClick="btnNewDb_OnClick"
         android:text="# Nowa baza" />
 

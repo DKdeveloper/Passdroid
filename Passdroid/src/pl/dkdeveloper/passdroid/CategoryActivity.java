@@ -53,6 +53,24 @@ public class CategoryActivity extends Activity {
 		item.setTitle(PassdroidApplication.isEditMode() ? "Tryb odczytu" : "Tryb edycji");
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+	    new AlertDialog.Builder(this)
+	        .setIcon(android.R.drawable.ic_dialog_alert)
+	        .setTitle("Zamykanie")
+	        .setMessage("Zamkn¹æ aplikacjê?")
+	        .setPositiveButton("Tak", new DialogInterface.OnClickListener()
+	    {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	            finish();    
+	        }
+
+	    })
+	    .setNegativeButton("Nie", null)
+	    .show();
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
