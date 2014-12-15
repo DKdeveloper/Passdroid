@@ -5,6 +5,7 @@ import pl.dkdeveloper.passdroid.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+//klasa pomocnicza do obslugi ustawien aplikacji
 public class PreferencesHeleper {
 	
 	public static void setString(String key, String value)

@@ -42,16 +42,15 @@ public class PasswordActivity extends Activity {
 		
 		category = manager.getStore().getCategoryByName(sCategory);
 		lvPasswords = (ListView) findViewById(R.id.lvPasswords);		
-
+		//Utworzenie adaptera z lista hasel danej kategorii
 		adapter = new ArrayAdapterPassword(this,
 				R.layout.password_list_item, manager.getPasswordByCategory(sCategory), category);	
-		
+		//ukrycie przycsku dodawanie jesli tryb jest do odczytu
 		if(!PassdroidApplication.isEditMode())
 			((Button) findViewById(R.id.btnAddPassword)).setVisibility(View.GONE);
 		
 		Log.d("YOLO", "Put Intent: "+sCategory);
 
-		// create a new ListView, set the adapter and item click listener
 		lvPasswords.setAdapter(adapter);
 	}
 
@@ -82,7 +81,7 @@ public class PasswordActivity extends Activity {
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
 		// Setting Dialog Title
-		alertDialog.setTitle("Nowe has³o");
+		alertDialog.setTitle("Nowe hasÂ³o");
 		final LinearLayout ll = new LinearLayout(this);		
 		
 		final EditText inputName = new EditText(this);
@@ -94,11 +93,11 @@ public class PasswordActivity extends Activity {
 				LinearLayout.VERTICAL);
 		
 		inputName.setLayoutParams(lp);
-		inputName.setHint("Nazwa has³a");
+		inputName.setHint("Nazwa hasÂ³a");
 		inputLogin.setLayoutParams(lp);
 		inputLogin.setHint("Login");
 		inputPass.setLayoutParams(lp);
-		inputPass.setHint("Has³o");
+		inputPass.setHint("HasÂ³o");
 		
 		ll.setOrientation(LinearLayout.VERTICAL);
 		ll.addView(inputName);
@@ -107,7 +106,7 @@ public class PasswordActivity extends Activity {
 
 		alertDialog.setView(ll);
 		
-		// Setting Positive "Yes" Button
+		// Ustawenia przycisku Zapisz
 		alertDialog.setPositiveButton("Zapisz",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -115,25 +114,25 @@ public class PasswordActivity extends Activity {
 						String sLogin = inputLogin.getText().toString();
 						String sPass = inputPass.getText().toString();
 						
+						//Sprawdzenie czy istnieje hasÅ‚o o podanej nazwie
 						if (!manager.getStore().checkPasswordExist(category, sName)) {
 							Password p = new Password(sName, sLogin, sPass);
 							adapter.add(p);
-							//category.getPasswords().add(p);
 							manager.getStore().UpdateCategory(category);
 							try {
+								//Zapisanie bazy
 								manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
 						else {
-							Toast.makeText(PasswordActivity.this, "Has³o o podanej nazwie ju¿ istnieje", Toast.LENGTH_LONG).show();
+							Toast.makeText(PasswordActivity.this, "HasÅ‚o o podanej nazwie juÅ¼ istnieje", Toast.LENGTH_LONG).show();
 						}							
 					}
 				});
 		
-		// Setting Negative "NO" Button
+		// Ustawienia przycisku Anuluj
 		alertDialog.setNegativeButton("Anuluj",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -142,9 +141,7 @@ public class PasswordActivity extends Activity {
 					}
 				});
 
-		// closed
-
-		// Showing Alert Message
+		
 		alertDialog.show();
 	}
 }

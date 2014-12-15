@@ -28,9 +28,10 @@ import pl.dkdeveloper.passdroid.PassdroidApplication;
 
 public class LogicManager {
 	
+	//sol uzyta przy generowaniu hala
 	public static String SALT = "QOOIWQDUAUIASIAS";
 
-	// Generate stubs for first DB
+	// Inicjalizacja przykładowych kategorii
 	public List<Category> InitExampleCategories() {
 		List<Category> list = new ArrayList<Category>();
 		list.add(new Category("Home"));
@@ -40,7 +41,7 @@ public class LogicManager {
 		return list;
 	}
 
-	// Generate stubs for first DB
+	// Dodanie testowych hasel
 	public List<Password> InitExamplePasswords() {
 		List<Password> list = new ArrayList<Password>();
 		list.add(new Password("Pass1", "Mariusz", "qwe"));
@@ -50,13 +51,14 @@ public class LogicManager {
 		return list;
 	}
 
-	// get categories from DB
+	// Pobranie listy kategorii
 	public List<Category> getCategoryList() {
 		List<Category> list = new ArrayList<Category>(getStore()
 				.getCategories());
 		return list;
 	}
 
+	//Pobranie hasel na podstawie nazwy kategorii
 	public List<Password> getPasswordByCategory(String category) {
 		Category cat = new Category();
 
@@ -69,6 +71,7 @@ public class LogicManager {
 		return cat.getPasswords();
 	}
 
+	//Tworzenie bazy danych
 	public void createDatabase(String path, String password) throws Exception {
 		setDatabasePath(path);
 		Store store = new Store();
@@ -76,6 +79,7 @@ public class LogicManager {
 		saveDatabase(store,password);
 	}
 
+	//Zapisywanie bazy danych
 	public void saveDatabase(Store ob,String password) throws Exception {
 		if(password == null || password.equals(""))
 			throw new Exception("Password is not set!");
@@ -107,14 +111,14 @@ public class LogicManager {
 			e.printStackTrace();
 		}
 		
-		//Saving Fake DB
+		//Zapisanie falszywej bazy
 		saveFakeDb(ob);
 		
 	}
 
+	//Zapisywanie falszywej bazy
 	private void saveFakeDb(Store originalStore) {
 		Store fakeStore = new Store();
-		Random rnd = new Random();
 		
 		for(Category c : originalStore.getCategories())
 		{
@@ -138,6 +142,7 @@ public class LogicManager {
 		
 	}
 	
+	//Odczyt falszywej bazy
 	public Store loadFakeDb()
 	{
 		String path = getFakeDatabasePath();
@@ -153,6 +158,7 @@ public class LogicManager {
 		return store;
 	}
 
+	//Odczyt prawdziwej bazy
 	public void loadDatabase(String password) throws Exception {
 		String path = getDatabasePath();
 		
@@ -183,29 +189,35 @@ public class LogicManager {
 
 	}
 
+	//Pobranie sciezki do bazy
 	public String getDatabasePath() {
 		String path = PreferencesHeleper.getString("db_path");
 		return path;
 	}
 
+	//Zapis sciezki do bazy
 	public void setDatabasePath(String path) {
 		PreferencesHeleper.setString("db_path", path);
 	}
 	
+	//Pobranie sciezki do falszywej bazy
 	public String getFakeDatabasePath() {
 		String path = PreferencesHeleper.getString("fake_db_path");
 		return path;
 	}
 
+	//Zapis sciezki do falszywej bazy
 	public void setFakeDatabasePath(String path) {
 		PreferencesHeleper.setString("fake_db_path", path);
 	}
-
+	
+	//Sprawdzenie czy baza istnieje
 	public boolean databaseExist() {
 		String path = getDatabasePath();
 		return !path.equals("");
 	}
 	
+	//Sprawdzenie czy uzytkownik uwierzytelniony
 	public boolean isAuthenticated()
 	{
 		return ! (PassdroidApplication.getPassword() == null || PassdroidApplication.getPassword().equals(""));
@@ -219,11 +231,13 @@ public class LogicManager {
 		PassdroidApplication.setStore(store);
 	}
 	
+	//Zapis falszywego hasla
 	public String getFakePassword() {
 		String pass = PreferencesHeleper.getString("fake_password");
 		return pass;
 	}
-
+	
+	//Odczyt falszywego hasla
 	public void setFakePassword(String pass) {
 		PreferencesHeleper.setString("fake_password", pass);
 	}

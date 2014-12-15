@@ -53,6 +53,7 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 			viewHolder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDeleteCategory);
 			viewHolder.btnEdit = (ImageButton) convertView.findViewById(R.id.btnCategoryEdit);
 			
+			//Ukrycie przycisków gdy tryb od odczytu
 			if(!PassdroidApplication.isEditMode())
 			{
 				viewHolder.btnDelete.setVisibility(View.GONE);
@@ -78,13 +79,15 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 				final String categoryName = data.get(tag).getCategoryName();
 				
 				new AlertDialog.Builder(mContext)
-			    .setTitle("Jeste� pewien?")
-			    .setMessage("Czy chcesz usun�� kategori� " + categoryName + "?")
+			    .setTitle("Jesteś pewien?")
+			    .setMessage("Czy chcesz usunąć kategorię " + categoryName + "?")
 			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int which) { 
 			        	 data.remove(tag);
+			        	 //Usuniecie hasla z bazy
 			                manager.getStore().removeCategoryByName(categoryName);
 			                try {
+			                	//Zapis bazy danych
 								manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -123,13 +126,13 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
         		input.setLayoutParams(lp);
         		alertDialog.setView(input);		
         		
-        		// Setting Positive "Yes" Button
+        		// Ustawienie przysku Zapisz
         		alertDialog.setPositiveButton("Zapisz",
         				new DialogInterface.OnClickListener() {
         					public void onClick(DialogInterface dialog, int which) {
         						
         						String newCategoryName = input.getText().toString();
-        						
+        						//Sprawdzenie czy kategoria istnieje w bazie danych
         						if (!manager.getStore().checkCategoryExist(newCategoryName)) {
 	        						
 	        						manager.getStore().updateCategoryWithNewName(categoryName,newCategoryName);
@@ -142,12 +145,12 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 	        						notifyDataSetChanged();
         						}
         						else {
-        							Toast.makeText(getContext(), "Kategoria o podanej nazwie ju� istnieje", Toast.LENGTH_LONG).show();
+        							Toast.makeText(getContext(), "Kategoria o podanej nazwie już istnieje", Toast.LENGTH_LONG).show();
         						}
         					}
         				});
         		
-        		// Setting Negative "NO" Button
+        		// Ustawienie przycisku Anuluj
         		alertDialog.setNegativeButton("Anuluj",
         				new DialogInterface.OnClickListener() {
         					public void onClick(DialogInterface dialog, int which) {
@@ -160,7 +163,7 @@ public class ArrayAdapterCategory extends ArrayAdapter<Category> {
 			}
 		});
 		
-		//viewHolder.tbCategoryName.setText(manager.getCategoryList().get(position).getCategoryName());
+		
 		viewHolder.tbCategoryName.setText(data.get(position).getCategoryName());
 		
 		viewHolder.tbCategoryName.setTag(position);

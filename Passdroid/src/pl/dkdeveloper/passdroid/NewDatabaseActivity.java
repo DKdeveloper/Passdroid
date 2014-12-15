@@ -52,10 +52,13 @@ public class NewDatabaseActivity extends Activity {
 	}
 	
 	public void btnSaveNewDb_onClick(View view) {
+		//Ustawienie sciezki do pliku bazy danych
 		String path = getFilesDir().getPath()+ "/" + getString(R.string.passdroid_db_name);
+		//Ustawienie sciezki do pliku falszywej bazy danych
 		String fakePath = getFilesDir().getPath()+ "/" + getString(R.string.passdroid_fake_db_name);
 		manager.setFakeDatabasePath(fakePath);
 		try {
+			//Utworzenie bazy danych
 			manager.createDatabase(path,tbPassword.getText().toString());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -37,10 +37,10 @@ public class CategoryActivity extends Activity {
 		adapter = new ArrayAdapterCategory(this,
 				R.layout.category_list_item, manager.getCategoryList());
 		
+		//Ukrycie opcji dodania kategorii jesli tryb do odczytu
 		if(!PassdroidApplication.isEditMode())
 			((Button) findViewById(R.id.btnAddCategory)).setVisibility(View.GONE);
 		
-		// create a new ListView, set the adapter and item click listener
 		lvCategory.setAdapter(adapter);	
 	}		
 		
@@ -102,19 +102,20 @@ public class CategoryActivity extends Activity {
 		input.setLayoutParams(lp);
 		alertDialog.setView(input);		
 		
-		// Setting Positive "Yes" Button
+		// Ustawienie przycisku Zapisz
 		alertDialog.setPositiveButton("Zapisz",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						String category = input.getText().toString();
+						//Spradzenie czy kategoria o podanej nazwie istnieje
 						if (!manager.getStore().checkCategoryExist(category)) {
 							Category c = new Category(category, manager.InitExamplePasswords());
 							adapter.add(c);
 							manager.getStore().addCategory(c);
 							try {
+								//Zapisanie bazy danych
 								manager.saveDatabase(manager.getStore(), PassdroidApplication.getPassword());
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -124,7 +125,7 @@ public class CategoryActivity extends Activity {
 					}
 				});
 		
-		// Setting Negative "NO" Button
+		// Ustawienie przycisku Anuluj
 		alertDialog.setNegativeButton("Anuluj",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {

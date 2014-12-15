@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Has≥o alarmowe");
+			alertDialog.setTitle("HasÔøΩo alarmowe");
 			final EditText input = new EditText(this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
 			input.setLayoutParams(lp);
 			alertDialog.setView(input);
 
-			// Setting Positive "Yes" Button
+			// Ustawienia przycisku Zapisz
 			alertDialog.setPositiveButton("Zapisz",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
 						}
 					});
 
-			// Setting Negative "NO" Button
+			// Ustawienia przycisku Anuluj
 			alertDialog.setNegativeButton("Anuluj",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -119,9 +119,6 @@ public class MainActivity extends Activity {
 						}
 					});
 
-			// closed
-
-			// Showing Alert Message
 			alertDialog.show();
 		}
 
@@ -132,18 +129,19 @@ public class MainActivity extends Activity {
 
 		if (tbPassword.getText().length() > 0) {
 			AuthenticateManager authManager = new AuthenticateManager();
+			//Uwierzytelnianie
 			AuthenticationResult result = authManager.Authenticate(tbPassword
 					.getText().toString());
 
 			if (result.IsSuccess
 					&& result.LoginResult == LoginResultEnum.SuccesS) {
-				// we can put message as reult in intent
+				//Jesli zalogowano poprawnie przejscie do kategorii
 				Intent intent = new Intent(this, CategoryActivity.class);
 				startActivity(intent);
 				finish();
 			} else if (result.IsSuccess
 					&& result.LoginResult == LoginResultEnum.FakePassword) {
-				// open fake category activity or put message in intent
+				// jesli haslo alarmowowe zaladowane falszywej bazy danych
 				String path = manager.getDatabasePath();
 				if (path == null || path.isEmpty()) {
 					manager.setStore(FakeStore.getFakeStore());
@@ -155,10 +153,10 @@ public class MainActivity extends Activity {
 				finish();
 			}
 			else {
-				Toast.makeText(this, "Z≥e has≥o!", Toast.LENGTH_LONG).show();				
+				Toast.makeText(this, "Z≈Çe has≈Ço!", Toast.LENGTH_LONG).show();				
 			}
 		} else {
-			Toast.makeText(this, "Wprowadü has≥o!", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Wprowad≈∫ has≈Ço!", Toast.LENGTH_LONG).show();
 		}
 	}
 

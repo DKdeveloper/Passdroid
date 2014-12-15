@@ -59,6 +59,7 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 			viewHolder.btnEdit = (ImageButton) convertView.findViewById(R.id.btnPasswordEdit);
 			viewHolder.btnPreview = (ImageButton) convertView.findViewById(R.id.btnPreviewPassword);
 			
+			//Ukrycie przyciskow gdy tryb do odczytu
 			if(!PassdroidApplication.isEditMode())
 			{
 				viewHolder.btnDelete.setVisibility(View.GONE);
@@ -84,8 +85,8 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 				final String passName = data.get(tag).getName();
 				
 				new AlertDialog.Builder(mContext)
-			    .setTitle("Jesteœ pewien?")
-			    .setMessage("Czy chcesz usun¹æ has³o " + passName + "?")
+			    .setTitle("JesteÅ› pewien?")
+			    .setMessage("Czy chcesz usunÄ…Ä‡ hasÅ‚o " + passName + "?")
 			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int which) { 
 			        	 data.remove(tag);
@@ -122,7 +123,7 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
                 final String passwordPass = data.get(tag).getPassword();
                 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-        		alertDialog.setTitle("Edycja has³a");
+        		alertDialog.setTitle("Edycja hasÅ‚a");
         		final LinearLayout ll = new LinearLayout(mContext);		
         		
         		final EditText inputName = new EditText(mContext);
@@ -134,13 +135,13 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
         				LinearLayout.VERTICAL);
         		
         		inputName.setLayoutParams(lp);
-        		inputName.setHint("Nazwa has³a");
+        		inputName.setHint("Nazwa hasÂ³a");
         		inputName.setText(passwordName);
         		inputLogin.setLayoutParams(lp);
         		inputLogin.setHint("Login");
         		inputLogin.setText(passwordLogin);
         		inputPass.setLayoutParams(lp);
-        		inputPass.setHint("Has³o");
+        		inputPass.setHint("HasÂ³o");
         		inputPass.setText(passwordPass);
         		
         		ll.setOrientation(LinearLayout.VERTICAL);
@@ -150,7 +151,7 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 
         		alertDialog.setView(ll);		
         		
-        		// Setting Positive "Yes" Button
+        		// Ustawienie przycisku Zapisz
         		alertDialog.setPositiveButton("Zapisz",
         				new DialogInterface.OnClickListener() {
         					public void onClick(DialogInterface dialog, int which) {
@@ -158,12 +159,13 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
         						String editName = inputName.getText().toString();
         						String editLogin = inputLogin.getText().toString();
         						String editPass = inputPass.getText().toString();
-        						
+        						//Sprawdzenie czy haslo o podanej nazwie juz istnieje
         						if (manager.getStore().checkPasswordExist(category, editName)) {
 	        						Password newPassword = new Password(editName, editLogin, editPass);
 	        						       						
 	        						manager.getStore().updatePasswordByName(category, passwordName, newPassword);
 	        						try {
+	        							//Zapisz bazy danych
 	        							manager.saveDatabase(manager.getStore(),PassdroidApplication.getPassword());
 	        						} catch (Exception e) {
 	        							e.printStackTrace();
@@ -172,12 +174,12 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 	        						notifyDataSetChanged();
         						}
         						else {
-        							Toast.makeText(getContext(), "Has³o o podanej nazwie ju¿ istnieje", Toast.LENGTH_LONG).show();
+        							Toast.makeText(getContext(), "HasÂ³o o podanej nazwie juÂ¿ istnieje", Toast.LENGTH_LONG).show();
         						}
         					}
         				});
         		
-        		// Setting Negative "NO" Button
+        		// Ustawienie przycisku Anuluj
         		alertDialog.setNegativeButton("Anuluj",
         				new DialogInterface.OnClickListener() {
         					public void onClick(DialogInterface dialog, int which) {
@@ -194,7 +196,6 @@ public class ArrayAdapterPassword extends ArrayAdapter<Password> {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated m`ethod stub
 				Log.d("YOLO", "OnTouchListener");
 				
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
