@@ -109,7 +109,7 @@ public class CategoryActivity extends Activity {
 						String category = input.getText().toString();
 						//Spradzenie czy kategoria o podanej nazwie istnieje
 						if (!manager.getStore().checkCategoryExist(category)) {
-							Category c = new Category(category, manager.InitExamplePasswords());
+							Category c = new Category(category);
 							adapter.add(c);
 							manager.getStore().addCategory(c);
 							try {
